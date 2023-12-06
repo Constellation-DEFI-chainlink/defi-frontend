@@ -6,7 +6,8 @@ import Analytics from "./components/Analytics";
 import Newsletter from "./components/Newsletter";
 import Cards from "./components/Cards";
 import Footer from "./components/Footer";
-import BuyLendPage from "./components/BuyLendPage"; // Import your BuyLendPage component
+import BuyLendPage from "./components/BuyLendPage";
+import About from "./components/About";
 
 function App() {
   return (
@@ -22,16 +23,9 @@ function App() {
                 <Cards />
               </>
             } />
-            <Route path="/weather" element={
-              <>
-              </>
-            } />
-            <Route path="/dashboard" element={
-              <>
-              </>
-            } />
             <Route path="/about" element={
               <>
+                <About />
               </>
             } />
             <Route path="/buy-lend" element={

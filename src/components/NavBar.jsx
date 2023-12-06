@@ -17,12 +17,6 @@ const NavBar = () => {
           <Link to="/">Home</Link>
         </li>
         <li className="p-4">
-          <Link to="/weather">Weather</Link>
-        </li>
-        <li className="p-4">
-          <Link to="/dashboard">Dashboard</Link>
-        </li>
-        <li className="p-4">
           <Link to="/about">About</Link>
         </li>
         <li className="p-4">
