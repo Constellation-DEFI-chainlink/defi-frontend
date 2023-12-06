@@ -20,16 +20,27 @@ function App() {
                 <Analytics />
                 <Newsletter />
                 <Cards />
-                <Footer />
+              </>
+            } />
+            <Route path="/weather" element={
+              <>
+              </>
+            } />
+            <Route path="/dashboard" element={
+              <>
+              </>
+            } />
+            <Route path="/about" element={
+              <>
               </>
             } />
             <Route path="/buy-lend" element={
               <>
                 <BuyLendPage />
-                <Footer />
               </>
             } />
           </Routes>
+          <Footer />
         </div>
       </Router>
   );
