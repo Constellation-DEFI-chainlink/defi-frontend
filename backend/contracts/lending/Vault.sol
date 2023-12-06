@@ -78,6 +78,34 @@ contract Vault is IVault, Ownable {
         return repaymentAmount / getEthUSDPrice();
     }
 
+    // Helper function to calculate interest rate based on temperature
+    // function calculateInterestRate(
+    //     uint256 temperature
+    // ) private pure returns (uint256) {
+    //     if (temperature > 50) return 15;
+    // 15% interest rate
+    //     else if (temperature > 20) return 10;
+    //     // 10% interest rate
+    //     else return 5; // 5% interest rate
+    // }
+
+    // function initiateLoan(
+    //     string memory latitude,
+    //     string memory longitude,
+    //     uint256 loanAmount
+    // ) external {
+    //     // Request ID from WeatherConsumer for the given coordinates
+    //     bytes32 requestId = weatherConsumer.getWeather(latitude, longitude);
+
+    //     // Retrieve the temperature for this request
+    //     uint256 temperature = weatherConsumer.getTemperature(requestId);
+
+    //     // Calculate interest rate based on temperature
+    //     uint256 interestRate = calculateInterestRate(temperature);
+
+    //     // get loan...
+    // }
+
     /**
     @notice Returns an estimate on how much stable coin could be minted at the current rate
     @param depositAmount the amount of ETH that would be deposited
