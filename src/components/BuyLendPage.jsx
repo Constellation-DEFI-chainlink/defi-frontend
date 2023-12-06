@@ -1,43 +1,131 @@
-// BuyLendPage.jsx
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import DefiService from '../service/DefiService';
 
-function BuyLendPage() {
+const BuyLendPage = () => {
   const [activeTab, setActiveTab] = useState('borrow');
+  const [loanAmount, setLoanAmount] = useState('');
+  const [loanDuration, setLoanDuration] = useState('');
+  const [lendAmount, setLendAmount] = useState('');
+  const [message, setMessage] = useState('');
+  const [estimatedInterestRate, setEstimatedInterestRate] = useState('');
+  const [expectedReturn, setExpectedReturn] = useState('');
+
+  const calculateInterestRate = () => {
+    DefiService.calculateEstimatedInterestRateForLend()
+    .then(response => {
+      showToast(response);
+      setEstimatedInterestRate(response);
+    })
+    .catch(error => showToast(error));
+  };
+
+  const calculateReturn = () => {
+    DefiService.calculateExpectedReturnForLend()
+    .then(response => {
+      showToast(response);
+      setExpectedReturn(response);
+    })
+    .catch(error => showToast(error));
+  };
+
+  const handleRequestLoan = () => {
+    DefiService.createLoanRequest(loanAmount, loanDuration)
+    .then(response => showToast(response))
+    .catch(error => showToast(error));
+  };
+
+  const handleLendAssets = () => {
+    DefiService.deposit(lendAmount)
+    .then(response => showToast(response))
+    .catch(error => showToast(error));
+  };
+
+  const showToast = (msg) => {
+    console.log(msg);
+    setMessage(msg);
+    setTimeout(() => setMessage(''), 3000); // Clear message after 3 seconds
+  };
 
   return (
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 text-white"> {/* Adjusted for white text */}
         <h1 className="text-2xl font-bold mb-4">Weather-Indexed Loan Marketplace</h1>
-        <div>
-          {/* Tab buttons */}
-          <div className="mb-4">
-            <button
-                className={`mr-4 ${activeTab === 'borrow' ? 'text-blue-500' : 'text-gray-500'}`}
-                onClick={() => setActiveTab('borrow')}
-            >
-              Borrowers
-            </button>
-            <button
-                className={`${activeTab === 'lend' ? 'text-blue-500' : 'text-gray-500'}`}
-                onClick={() => setActiveTab('lend')}
-            >
-              Lenders
-            </button>
-          </div>
+        <p>Welcome to the Weather-Indexed Loan Marketplace, where your loan terms adapt to real-time weather conditions.</p>
+        {message && <div className="toast-message">{message}</div>}
 
-          {/* Tab content */}
-          {activeTab === 'borrow' && (
-              <div>
-                {/* Borrowers form - To be implemented */}
-              </div>
-          )}
-          {activeTab === 'lend' && (
-              <div>
-                {/* Lenders form - To be implemented */}
-              </div>
-          )}
+        {/* Process Description */}
+        <div className="mb-6">
+          <p>Select whether you want to request a loan or lend your assets, then calculate the estimated interest rate or expected return before proceeding.</p>
         </div>
+
+        <div className="mb-4 flex border-b">
+          <button
+              className={`mr-4 pb-2 w-1/2 ${activeTab === 'borrow' ? 'bg-[#000300] text-[#00df9a]' : 'text-gray-500'}`}
+              onClick={() => setActiveTab('borrow')}
+          >
+            Request a Loan
+          </button>
+          <button
+              className={`pb-2 w-1/2 ${activeTab === 'lend' ? 'bg-[#000300] text-[#00df9a]' : 'text-gray-500'}`}
+              onClick={() => setActiveTab('lend')}
+          >
+            Lend Your Assets
+          </button>
+        </div>
+
+        {/* Borrow Tab */}
+        {activeTab === 'borrow' && (
+            <div>
+              <label htmlFor="loan-amount" className="block my-2">Loan Amount</label>
+              <input id="loan-amount" name="loanAmount" type="number"
+                     placeholder="Loan Amount" className="border p-2 rounded w-full text-black"
+                     value={loanAmount} onChange={(e) => setLoanAmount(e.target.value)}
+              />
+              <label htmlFor="loan-duration" className="block my-2">Loan Duration (in days)</label>
+              <input id="loan-duration" name="loanDuration" type="number"
+                     placeholder="Loan Duration" className="border p-2 rounded w-full text-black"
+                     value={loanDuration} onChange={(e) => setLoanDuration(e.target.value)}
+              />
+              <button id="calculate-interest-rate"
+                      className="bg-green-500 text-white rounded p-2 hover:bg-green-700 my-2"
+                      onClick={calculateInterestRate}
+              >
+                Calculate Estimated Interest Rate
+              </button>
+              <p>{estimatedInterestRate}</p>
+              <button id="request-loan"
+                      className={`bg-blue-500 text-white rounded p-2 hover:bg-blue-700 my-2 ${!estimatedInterestRate && 'opacity-50 cursor-not-allowed'}`}
+                      onClick={handleRequestLoan} disabled={!estimatedInterestRate}
+              >
+                Request Loan
+              </button>
+            </div>
+        )}
+
+        {/* Lend Tab */}
+        {activeTab === 'lend' && (
+            <div>
+              <label htmlFor="lend-amount" className="block my-2">Amount to Lend</label>
+              <input id="lend-amount" name="lendAmount" type="number"
+                     placeholder="Amount to Lend" className="border p-2 rounded w-full text-black"
+                     value={lendAmount} onChange={(e) => setLendAmount(e.target.value)}
+              />
+              <button id="calculate-return"
+                      className="bg-green-500 text-white rounded p-2 hover:bg-green-700 my-2"
+                      onClick={calculateReturn}
+              >
+                Calculate Expected Return
+              </button>
+              <p>{expectedReturn}</p>
+              <button id="lend-assets"
+                      className={`bg-blue-500 text-white rounded p-2 hover:bg-blue-700 my-2 ${!expectedReturn && 'opacity-50 cursor-not-allowed'}`}
+                      onClick={handleLendAssets} disabled={!expectedReturn}
+              >
+                Lend Assets
+              </button>
+            </div>
+        )}
       </div>
   );
-}
+};
 
 export default BuyLendPage;
