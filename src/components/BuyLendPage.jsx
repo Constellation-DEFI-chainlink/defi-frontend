@@ -40,6 +40,27 @@ const BuyLendPage = () => {
     .catch(error => showToast(error));
   };
 
+  const onLoanAmountChange = (e) => {
+    setLoanAmount(e.target.value);
+    if (estimatedInterestRate) {
+      setEstimatedInterestRate('');
+    }
+  };
+
+  const onLoanDurationChange = (e) => {
+    setLoanDuration(e.target.value);
+    if (estimatedInterestRate) {
+      setEstimatedInterestRate('');
+    }
+  };
+
+  const onLendAmountChange = (e) => {
+    setLendAmount(e.target.value);
+    if (expectedReturn) {
+      setExpectedReturn('');
+    }
+  };
+
   const showToast = (msg) => {
     console.log(msg);
     setMessage(msg);
@@ -79,13 +100,15 @@ const BuyLendPage = () => {
               <input id="loan-amount" name="loanAmount" type="number"
                      placeholder="Loan Amount" className="border p-2 rounded w-full text-black"
                      min={0}
-                     value={loanAmount} onChange={(e) => setLoanAmount(e.target.value)}
+                     value={loanAmount}
+                     onChange={onLoanAmountChange}
               />
               <label htmlFor="loan-duration" className="block my-2">Loan Duration (in days)</label>
               <input id="loan-duration" name="loanDuration" type="number"
                      placeholder="Loan Duration" className="border p-2 rounded w-full text-black"
                      min={0}
-                     value={loanDuration} onChange={(e) => setLoanDuration(e.target.value)}
+                     value={loanDuration}
+                     onChange={onLoanDurationChange}
               />
               <button id="calculate-interest-rate"
                       className={`bg-green-500 text-white rounded p-2 hover:bg-green-700 my-2 ${!(loanAmount >0 && loanDuration > 0) && 'opacity-50 cursor-not-allowed'}`}
@@ -111,7 +134,8 @@ const BuyLendPage = () => {
               <input id="lend-amount" name="lendAmount" type="number"
                      placeholder="Amount to Lend" className="border p-2 rounded w-full text-black"
                      min={0}
-                     value={lendAmount} onChange={(e) => setLendAmount(e.target.value)}
+                     value={lendAmount}
+                     onChange={onLendAmountChange}
               />
               <button id="calculate-return"
                       className={`bg-green-500 text-white rounded p-2 hover:bg-green-700 my-2 ${!(lendAmount > 0) && 'opacity-50 cursor-not-allowed'}`}
