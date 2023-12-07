@@ -78,16 +78,19 @@ const BuyLendPage = () => {
               <label htmlFor="loan-amount" className="block my-2">Loan Amount</label>
               <input id="loan-amount" name="loanAmount" type="number"
                      placeholder="Loan Amount" className="border p-2 rounded w-full text-black"
+                     min={0}
                      value={loanAmount} onChange={(e) => setLoanAmount(e.target.value)}
               />
               <label htmlFor="loan-duration" className="block my-2">Loan Duration (in days)</label>
               <input id="loan-duration" name="loanDuration" type="number"
                      placeholder="Loan Duration" className="border p-2 rounded w-full text-black"
+                     min={0}
                      value={loanDuration} onChange={(e) => setLoanDuration(e.target.value)}
               />
               <button id="calculate-interest-rate"
-                      className="bg-green-500 text-white rounded p-2 hover:bg-green-700 my-2"
+                      className={`bg-green-500 text-white rounded p-2 hover:bg-green-700 my-2 ${!(loanAmount >0 && loanDuration > 0) && 'opacity-50 cursor-not-allowed'}`}
                       onClick={calculateInterestRate}
+                      disabled={!(loanAmount >0 && loanDuration > 0)}
               >
                 Calculate Estimated Interest Rate
               </button>
@@ -107,11 +110,14 @@ const BuyLendPage = () => {
               <label htmlFor="lend-amount" className="block my-2">Amount to Lend</label>
               <input id="lend-amount" name="lendAmount" type="number"
                      placeholder="Amount to Lend" className="border p-2 rounded w-full text-black"
+                     min={0}
                      value={lendAmount} onChange={(e) => setLendAmount(e.target.value)}
               />
               <button id="calculate-return"
-                      className="bg-green-500 text-white rounded p-2 hover:bg-green-700 my-2"
+                      className={`bg-green-500 text-white rounded p-2 hover:bg-green-700 my-2 ${!(lendAmount > 0) && 'opacity-50 cursor-not-allowed'}`}
                       onClick={calculateReturn}
+                      disabled={!(lendAmount > 0)}
+
               >
                 Calculate Expected Return
               </button>
