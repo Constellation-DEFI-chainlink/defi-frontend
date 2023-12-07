@@ -29,15 +29,30 @@ const BuyLendPage = () => {
   };
 
   const handleRequestLoan = () => {
-    DefiService.createLoanRequest(loanAmount, loanDuration)
-    .then(response => showToast(response))
-    .catch(error => showToast(error));
+    if (loanAmount > 0 && loanDuration > 0) {
+      DefiService.createLoanRequest(loanAmount, loanDuration)
+      .then(response => {
+        showToast(response);
+        // Reset the form and related states
+        setLoanAmount('');
+        setLoanDuration('');
+        setEstimatedInterestRate('');
+      })
+      .catch(error => showToast(error));
+    }
   };
 
   const handleLendAssets = () => {
-    DefiService.deposit(lendAmount)
-    .then(response => showToast(response))
-    .catch(error => showToast(error));
+    if (lendAmount > 0) {
+      DefiService.deposit(lendAmount)
+      .then(response => {
+        showToast(response);
+        // Reset the form and related states
+        setLendAmount('');
+        setExpectedReturn('');
+      })
+      .catch(error => showToast(error));
+    }
   };
 
   const onLoanAmountChange = (e) => {
@@ -119,8 +134,9 @@ const BuyLendPage = () => {
               </button>
               <p>{estimatedInterestRate}</p>
               <button id="request-loan"
-                      className={`bg-blue-500 text-white rounded p-2 hover:bg-blue-700 my-2 ${!estimatedInterestRate && 'opacity-50 cursor-not-allowed'}`}
-                      onClick={handleRequestLoan} disabled={!estimatedInterestRate}
+                      className={`bg-blue-500 text-white rounded p-2 hover:bg-blue-700 my-2 ${!estimatedInterestRate ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      onClick={handleRequestLoan}
+                      disabled={!estimatedInterestRate}
               >
                 Request Loan
               </button>
@@ -147,8 +163,9 @@ const BuyLendPage = () => {
               </button>
               <p>{expectedReturn}</p>
               <button id="lend-assets"
-                      className={`bg-blue-500 text-white rounded p-2 hover:bg-blue-700 my-2 ${!expectedReturn && 'opacity-50 cursor-not-allowed'}`}
-                      onClick={handleLendAssets} disabled={!expectedReturn}
+                      className={`bg-blue-500 text-white rounded p-2 hover:bg-blue-700 my-2 ${!expectedReturn ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      onClick={handleLendAssets}
+                      disabled={!expectedReturn}
               >
                 Lend Assets
               </button>
