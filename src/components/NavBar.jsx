@@ -17,10 +17,10 @@ const NavBar = () => {
           <Link to="/">Home</Link>
         </li>
         <li className="p-4">
-          <Link to="/about">About</Link>
+          <Link to="/buy-lend">Buy/Lend</Link>
         </li>
         <li className="p-4">
-          <Link to="/buy-lend">Buy/Lend</Link>
+          <Link to="/about">About</Link>
         </li>
       </ul>
       <div onClick={handleNav} className="block md:hidden ">
@@ -36,11 +36,9 @@ const NavBar = () => {
         <h1 className="w-full text-3xl font-bold text-[#00df9a] ">Data.</h1>
 
         <ul className="uppercase p-4">
-          <li className="p-4 border-b border-gray-600">Home</li>
-          <li className="p-4 border-b border-gray-600">Company</li>
-          <li className="p-4 border-b border-gray-600">Resources</li>
-          <li className="p-4 border-b border-gray-600">About</li>
-          <li className="p-4">Contact</li>
+          <li className="p-4 border-b border-gray-600"><Link to="/">Home</Link></li>
+          <li className="p-4 border-b border-gray-600"><Link to="/buy-lend">Buy/Lend</Link></li>
+          <li className="p-4 border-b border-gray-600"><Link to="/about">About</Link></li>
         </ul>
       </div>
     </div>
