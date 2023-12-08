@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #000300;
+}
+
+.toast-message {
+  background-color: rgba(0, 0, 0, 0.85); 
+  color: #00df9a; 
+  padding: 15px 30px; 
+  font-size: 1.2em; 
+  border: 2px solid white; 
+  border-radius: 8px; 
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  max-width: 80%; 
+  text-align: center; 
+}
+
