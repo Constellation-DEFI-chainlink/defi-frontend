@@ -118,7 +118,7 @@ const BorrowPage = () => {
 
         {/* Loan Request Section */}
         <div className="loan-request-section my-6">
-          <label htmlFor="loan-amount" className="block my-2">Loan Amount</label>
+          <label htmlFor="loan-amount" className="block my-2">Loan Amount in USD</label>
           <input
               id="loan-amount"
               name="loanAmount"
@@ -128,12 +128,14 @@ const BorrowPage = () => {
               min={0}
               value={loanAmount}
               onChange={(e) => setLoanAmount(e.target.value)}
+              step=".01"
+
           />
 
           <button
-              className={`bg-blue-500 text-white rounded p-2 hover:bg-blue-700 my-2 ${!loanAmount ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`bg-blue-500 text-white rounded p-2 hover:bg-blue-700 my-2 ${(!(loanAmount>0) ||!(weather && !!weather.temperature) )? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={handleCalculateCollateral}
-              disabled={!loanAmount}
+              disabled={(!(loanAmount>0) ||!(weather && !!weather.temperature) )}
           >
             Calculate Collateral
           </button>
@@ -142,6 +144,7 @@ const BorrowPage = () => {
               <div className="collateral-details">
                 <p>Calculated Collateral Amount: {collateralDetails.collateralAmount} ETH</p>
                 <p>Interest Rate: {collateralDetails.interestRate}%</p>
+                <p>By accepting, you will trigger a transaction to pay the collateral in ETH and receive your loan in Solc Coin</p>
                 <button
                     className={`bg-green-500 text-white rounded p-2 hover:bg-green-700 my-2`}
                     onClick={handleAcceptLoanOffer}
