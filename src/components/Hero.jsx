@@ -1,6 +1,6 @@
 import React from "react";
 import Typed from "react-typed";
-import Connect from "../components/ConnectButton";
+import Connect from "./ConnectButton";
 
 function Hero() {
   return (
