@@ -17,7 +17,7 @@ const NavBar = () => {
           <Link to="/">Home</Link>
         </li>
         <li className="p-4">
-          <Link to="/lend">Lend</Link>
+          <Link to="/borrow">Borrow</Link>
         </li>
         <li className="p-4">
           <Link to="/about">About</Link>
@@ -40,7 +40,7 @@ const NavBar = () => {
 
         <ul className="uppercase p-4">
           <li className="p-4 border-b border-gray-600"><Link to="/">Home</Link></li>
-          <li className="p-4 border-b border-gray-600"><Link to="/lend">Lend</Link></li>
+          <li className="p-4 border-b border-gray-600"><Link to="/borrow">Borrow</Link></li>
           <li className="p-4 border-b border-gray-600"><Link to="/about">About</Link></li>
           <li className="p-4 border-b border-gray-600"><Link to="/profile">Profile</Link></li>
         </ul>

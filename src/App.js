@@ -6,7 +6,7 @@ import Analytics from "./components/Analytics";
 import Newsletter from "./components/Newsletter";
 import Cards from "./components/Cards";
 import Footer from "./components/Footer";
-import LendPage from "./components/LendPage";
+import BorrowPage from "./components/BorrowPage";
 import About from "./components/About";
 import ProfilePage from "./components/ProfilePage";
 
@@ -29,9 +29,9 @@ function App() {
                 <About />
               </>
             } />
-            <Route path="/lend" element={
+            <Route path="/borrow" element={
               <>
-                <LendPage />
+                <BorrowPage />
               </>
             } />
             <Route path="/profile" element={
