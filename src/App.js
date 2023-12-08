@@ -6,8 +6,9 @@ import Analytics from "./components/Analytics";
 import Newsletter from "./components/Newsletter";
 import Cards from "./components/Cards";
 import Footer from "./components/Footer";
-import BuyLendPage from "./components/BuyLendPage";
+import LendPage from "./components/LendPage";
 import About from "./components/About";
+import ProfilePage from "./components/ProfilePage";
 
 function App() {
   return (
@@ -28,9 +29,14 @@ function App() {
                 <About />
               </>
             } />
-            <Route path="/buy-lend" element={
+            <Route path="/lend" element={
               <>
-                <BuyLendPage />
+                <LendPage />
+              </>
+            } />
+            <Route path="/profile" element={
+              <>
+                <ProfilePage />
               </>
             } />
           </Routes>

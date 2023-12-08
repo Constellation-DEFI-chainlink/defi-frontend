@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import DefiService from '../service/DefiService';
 import { useEffect } from 'react';
-const BuyLendPage = () => {
+const LendPage = () => {
   const [activeTab, setActiveTab] = useState('borrow');
   const [loanAmount, setLoanAmount] = useState('');
   const [loanDuration, setLoanDuration] = useState('');
@@ -253,4 +253,4 @@ const BuyLendPage = () => {
   );
 };
 
-export default BuyLendPage;
+export default LendPage;
