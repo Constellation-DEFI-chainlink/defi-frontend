@@ -17,7 +17,10 @@ const NavBar = () => {
           <Link href="/">Home</Link>
         </li>
         <li className="p-4">
-          <Link href="/buy-lend">Buy/Lend</Link>
+          <Link href="/profile">Profile</Link>
+        </li>
+        <li className="p-4">
+          <Link href="/borrow">Borrow</Link>
         </li>
         <li className="p-4">
           <Link href="/about">About</Link>
@@ -40,7 +43,10 @@ const NavBar = () => {
             <Link href="/">Home</Link>
           </li>
           <li className="p-4 border-b border-gray-600">
-            <Link href="/buy-lend">Buy/Lend</Link>
+            <Link href="/profile">Profile</Link>
+          </li>
+          <li className="p-4 border-b border-gray-600">
+            <Link href="/borrow">Borrow</Link>
           </li>
           <li className="p-4 border-b border-gray-600">
             <Link href="/about">About</Link>
