@@ -1,6 +1,37 @@
 const mockSuccessOrFail = () => Math.random() > 0.35;
 const mockRandomPercentage = () => (Math.random() * 10).toFixed(3);
+const mockLoansTaken = [
+  {
+    id: 'loan1',
+    collateralEth: 0.5,
+    dateTaken: new Date().toISOString(),
+    interestRate: 4.5,
+    paidPercentage: 25,
+  },  {
+    id: 'loan2',
+    collateralEth: 5.5,
+    dateTaken: new Date().toISOString(),
+    interestRate: 10.5,
+    paidPercentage: 0,
+  },
+  // ... other loans
+];
 
+const getLoansTakenForWallet = (walletId) => {
+  // Mock fetching loans for a given wallet ID
+  return Promise.resolve(mockLoansTaken);
+};
+
+const payLoan = (loanId) => {
+  // Mock paying off a loan
+  return new Promise((resolve, reject) => {
+    if (Math.random() > 0.5) {
+      resolve(`Loan ${loanId} has been successfully paid off.`);
+    } else {
+      reject(`Failed to pay off loan ${loanId}.`);
+    }
+  });
+};
 const getCollateralAmount = (loanAmount, temperature) => {
   const ETH_PRICE = 2300; // USD
   const MIN_INTEREST_RATE = 0.03; // 3%
@@ -62,22 +93,10 @@ const withdrawLoan = (loanAmount) => {
   });
 };
 
-const payLoan = (loanId, repaymentAmount) => {
-  // Mocking the loan repayment process
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (mockSuccessOrFail()) {
-        resolve(`Loan ${loanId} repaid with amount ${repaymentAmount}.`);
-      } else {
-        reject('Failed to repay loan.');
-      }
-    }, 1000);
-  });
-};
-
 export default {
   getCollateralAmount,
   acceptLoanOffer,
   withdrawLoan,
-  payLoan
+  getLoansTakenForWallet,
+  payLoan,
 };
