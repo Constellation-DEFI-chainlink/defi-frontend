@@ -2,13 +2,13 @@ import React from "react";
 import Single from "../assets/single.png";
 import Double from "../assets/double.png";
 import Triple from "../assets/triple.png";
-
+import Image from "next/image";
 function Cards() {
   return (
     <div className="w-full py-[10rem] px-4 bg-white">
       <div className="max-w-[1240px] mx-auto grid md:grid-cols-3 gap-8">
         <div className="w-full shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 ">
-          <img
+          <Image
             className="w-20 mx-auto mt-[-3rem] bg-white "
             src={Single}
             alt=""
@@ -23,7 +23,7 @@ function Cards() {
         </div>
 
         <div className="w-full shadow-xl bg-gray-100 flex flex-col p-4 md:my-0 my-8 rounded-lg hover:scale-105 duration-300 ">
-          <img
+          <Image
             className="w-20 mx-auto mt-[-3rem] bg-transpered "
             src={Double}
             alt=""
@@ -38,7 +38,7 @@ function Cards() {
         </div>
 
         <div className="w-full shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 ">
-          <img
+          <Image
             className="w-20 mx-auto mt-[-3rem] bg-white "
             src={Triple}
             alt=""
