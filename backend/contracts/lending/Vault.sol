@@ -1,37 +1,43 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "../interfaces/IVault.sol";
-import "./AirCoin.sol";
+import "./SolsticeCoin.sol";
 import "./PriceConsumerV3.sol";
-import "./Oracle.sol";
+import "./MockOracle.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-// import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-
 contract Vault is IVault, Ownable {
-    mapping(address => Vault) vaults;
-    StableCoinToken public token;
+    mapping(address => Vault) public vaults;
+    SolsticeCoin public token;
     PriceConsumerV3 private oracle;
 
-    // using SafeMath for uint256;
-
-    constructor(StableCoinToken _token, PriceConsumerV3 _oracle) {
+    constructor(
+        SolsticeCoin _token,
+        PriceConsumerV3 _oracle
+    ) Ownable(msg.sender) {
         token = _token;
         oracle = _oracle;
     }
 
     /**
     @notice Allows a user to deposit ETH collateral in exchange for some amount of stablecoin
-    @param amountToDeposit  The amount of ether the user sent in the transaction
+    @param amountToDeposit  = requestedLoanAmount + (requestedLoanAmount * interestRate);
+    
+    The amount of ether the user sent in the transaction
      */
-    function deposit(uint256 amountToDeposit) external payable override {
+    function deposit(
+        uint256 amountToDeposit,
+        uint256 requestedLoanAmount
+    ) external payable override {
         require(amountToDeposit == msg.value, "incorrect ETH amount");
-        uint256 amountToMint = amountToDeposit * getEthUSDPrice();
+
+        uint256 amountToMint = requestedLoanAmount * getEthUSDPrice();
         token.mint(msg.sender, amountToMint);
-        vaults[msg.sender].collateralAmount += amountToDeposit;
+        vaults[msg.sender].collateralAmount += requestedLoanAmount;
+
         vaults[msg.sender].debtAmount += amountToMint;
-        emit Deposit(amountToDeposit, amountToMint);
+        emit Deposit(requestedLoanAmount, amountToMint);
     }
 
     /**
@@ -49,22 +55,11 @@ contract Vault is IVault, Ownable {
             "not enough tokens in balance"
         );
         uint256 amountToWithdraw = repaymentAmount / getEthUSDPrice();
-        token.burn(msg.sender, repaymentAmount);
+        token.burnFrom(msg.sender, repaymentAmount);
         vaults[msg.sender].collateralAmount -= amountToWithdraw;
         vaults[msg.sender].debtAmount -= repaymentAmount;
         payable(msg.sender).transfer(amountToWithdraw);
         emit Withdraw(amountToWithdraw, repaymentAmount);
-    }
-
-    /**
-    @notice Returns the details of a vault
-    @param userAddress  the address of the vault owner
-    @return vault  the vault details
-     */
-    function getVault(
-        address userAddress
-    ) external view override returns (Vault memory vault) {
-        return vaults[userAddress];
     }
 
     /**
@@ -77,34 +72,6 @@ contract Vault is IVault, Ownable {
     ) external view override returns (uint256 collateralAmount) {
         return repaymentAmount / getEthUSDPrice();
     }
-
-    // Helper function to calculate interest rate based on temperature
-    // function calculateInterestRate(
-    //     uint256 temperature
-    // ) private pure returns (uint256) {
-    //     if (temperature > 50) return 15;
-    // 15% interest rate
-    //     else if (temperature > 20) return 10;
-    //     // 10% interest rate
-    //     else return 5; // 5% interest rate
-    // }
-
-    // function initiateLoan(
-    //     string memory latitude,
-    //     string memory longitude,
-    //     uint256 loanAmount
-    // ) external {
-    //     // Request ID from WeatherConsumer for the given coordinates
-    //     bytes32 requestId = weatherConsumer.getWeather(latitude, longitude);
-
-    //     // Retrieve the temperature for this request
-    //     uint256 temperature = weatherConsumer.getTemperature(requestId);
-
-    //     // Calculate interest rate based on temperature
-    //     uint256 interestRate = calculateInterestRate(temperature);
-
-    //     // get loan...
-    // }
 
     /**
     @notice Returns an estimate on how much stable coin could be minted at the current rate

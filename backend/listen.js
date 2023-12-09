@@ -1,3 +1,5 @@
+// creates listener for new request and prints response
+// terminal command: node listen.js
 const {
   ResponseListener,
   decodeResult,
@@ -10,7 +12,7 @@ const { networks } = require("./networks.js");
 const { provider } = require("./connection.js");
 
 const NETWORK = "polygonMumbai";
-const subscriptionId = "718";
+const subscriptionId = "1003";
 
 const responseListener = new ResponseListener({
   provider,
@@ -18,11 +20,11 @@ const responseListener = new ResponseListener({
 });
 
 console.log("\nListening....");
-responseListener.listenForResponses(subscriptionId, response => {
+responseListener.listenForResponses(subscriptionId, (response) => {
   if (!response.errorString) {
     console.log(
-      "\nFunctions response decodes to a string value of:  ",
-      decodeResult(response.responseBytesHexstring, ReturnType.string)
+      "\nFunctions response decodes to a uint256 value of:  ",
+      decodeResult(response.responseBytesHexstring, ReturnType.uint256)
     );
   } else {
     console.log("\nError during functions execution:  ", response.errorString);
@@ -30,7 +32,7 @@ responseListener.listenForResponses(subscriptionId, response => {
 });
 
 // Remove existing listener
-process.on("SIGINT", ()=>{
-    console.log("Removing Listeners...")
-    responseListener.stopListeningForResponses();
-})
+process.on("SIGINT", () => {
+  console.log("Removing Listeners...");
+  responseListener.stopListeningForResponses();
+});

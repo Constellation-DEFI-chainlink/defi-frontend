@@ -1,5 +1,5 @@
 // Stores secrets in DON for WeatherConsumer.sol
-// Uploaded secrets to DON✅ encryptedSecretsReference: 0xa266736c6f744964006776657273696f6e1a657028a7
+
 const { SecretsManager } = require("@chainlink/functions-toolkit");
 const { signer } = require("../connection.js");
 const { networks } = require("../networks.js");

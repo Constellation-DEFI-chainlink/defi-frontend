@@ -15,7 +15,7 @@ const requestConfig = {
   // Code language (only JavaScript is currently supported)
   codeLanguage: CodeLanguage.JavaScript,
   // string containing the source code to be executed
-  source: fs.readFileSync("./weather-source.js").toString(),
+  source: fs.readFileSync("./weather-api.js").toString(),
   // secrets can be accessed within the source code with `secrets.varName` (ie: secrets.apiKey)
   secrets: {
     openWeatherApiKey: process.env.OPEN_WEATHER_API_KEY,

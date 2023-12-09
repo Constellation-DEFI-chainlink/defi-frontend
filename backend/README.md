@@ -1,6 +1,6 @@
 # Chainlink Constellation Hackathon, Fall 2023 - Demonstrating the Power of Chainlink Functions
 
-This workshop demonstrates Chainlink Functions. The key dependency used is the [Chainlink Functions Toolkit NPM Package](https://github.com/smartcontractkit/functions-toolkit)
+The key dependency used is the [Chainlink Functions Toolkit NPM Package](https://github.com/smartcontractkit/functions-toolkit)
 
 In this workshop, we will make an on-chain prompt to the OpenAPI ChatGPT API and get a decentralized response delivered back on chain -- all done via a single Smart Contract and some custom JavaScript that we supply that is executed by the Chainlink Decentralized Oracle Network!
 

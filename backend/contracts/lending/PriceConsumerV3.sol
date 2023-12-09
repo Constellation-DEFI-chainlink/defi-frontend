@@ -1,5 +1,6 @@
-pragma solidity ^0.8.0;
-
+// deployed on polygonMumbai: 0x07f65b32cb9686b3526ee4a86ba3c77d8f69e2c2
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 contract PriceConsumerV3 {
@@ -17,17 +18,16 @@ contract PriceConsumerV3 {
     }
 
     /**
-     * Returns the latest answer.
+     * Returns the latest price
      */
-    function getChainlinkDataFeedLatestAnswer() public view returns (int) {
-        // prettier-ignore
+    function getLatestPrice() public view returns (int) {
         (
-            /* uint80 roundID */,
-            int answer,
-            /*uint startedAt*/,
-            /*uint timeStamp*/,
-            /*uint80 answeredInRound*/
-        ) = dataFeed.latestRoundData();
-        return answer;
+            ,
+            /* uint80 roundID */ int price /*  uint startedAt */ /*  uint timeStamp */ /* uint80 answeredInRound */,
+            ,
+            ,
+
+        ) = priceFeed.latestRoundData();
+        return price;
     }
 }
