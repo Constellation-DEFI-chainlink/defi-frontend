@@ -15,6 +15,7 @@ import {
 } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import NavBar from "../src/components/NavBar";
+import Image from "next/image";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
@@ -32,16 +33,17 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 
 const { connectors } = getDefaultWallets({
   appName: "RainbowKit App",
-  projectId: "YOUR_PROJECT_ID",
+  projectId: "5374d190ba8c3c42c20fdc68c3314bae",
   chains,
 });
 
 const wagmiConfig = createConfig({
   autoConnect: true,
-  connectors,
+  connectors, // Using the 'connectors' variable retrieved from getDefaultWallets
   publicClient,
   webSocketPublicClient,
 });
+
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
