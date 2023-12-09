@@ -15,7 +15,7 @@ const About = () => {
           introduces a groundbreaking approach to decentralized finance. By
           utilizing real-time weather data through Chainlink oracles, we adapt
           loan interest rates to local weather conditions, crafting a lending
-          environment that's both fair and responsive to the needs of borrowers
+          environment both fair and responsive to the needs of borrowers
           and lenders.
         </p>
         <p className="text-lg mb-4">
