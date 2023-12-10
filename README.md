@@ -1,31 +1,43 @@
-This is a [RainbowKit](https://rainbowkit.com) + [wagmi](https://wagmi.sh) + [Next.js](https://nextjs.org/) project bootstrapped with [`create-rainbowkit`](https://github.com/rainbow-me/rainbowkit/tree/main/packages/create-rainbowkit).
+# SolsticeLend Documentation
 
-## Getting Started
+SolsticeLend is a decentralized finance application that dynamically adjusts loan interest rates based on real-time weather conditions. It uses Chainlink oracles to fetch weather data which directly influences the terms of the loans provided on the platform.
 
-First, run the development server:
+## Summary
+
+SolsticeLend enables users to borrow funds with interest rates that reflect current weather conditions. By using the power of smart contracts and real-time data, SolsticeLend provides a unique financial product that is fair, transparent, and adaptable to the changing environment.
+
+## Chainlink Integration
+
+Chainlink oracles are utilized to retrieve accurate and tamper-proof weather data from multiple sources. This data is used within the SolsticeLend smart contracts to adjust loan interest rates, ensuring that the rates are fair and responsive to real-world events.
+
+## Smart Contract Details
+
+The SolsticeLend smart contract suite comprises:
+
+- **Loan Contract:** Manages the issuance of loans, calculation of interest rates, and repayment terms based on the weather data provided by Chainlink oracles.
+- **Oracle Contract:** Interacts with Chainlink to fetch the required weather data from external APIs.
+- **Vault Contract:** Handles the collateral provided by borrowers and ensures the safety of funds within the platform.
+
+## User Actions and Frontend Flow
+
+The user experience on SolsticeLend is designed to be intuitive and straightforward:
+
+1. **Location Input:** Users begin by entering their location to fetch local weather conditions.
+2. **Loan Request:** Users specify the amount they wish to borrow.
+3. **Collateral Calculation:** The platform calculates the required collateral based on the current weather data.
+4. **Loan Acceptance:** Users accept the loan terms and provide collateral to receive the loan amount in SolsticeCoin.
+5. **Loan Repayment:** Users can repay their loans and recover their collateral directly through the platform.
+
+## Demo and Video
+
+Experience SolsticeLend live: [SolsticeLend Demo](https://defi-frontend-tau.vercel.app)
+
+Watch the explainer video: [SolsticeLend Video](#)
+
+## Running the Frontend
+
+To run the SolsticeLend frontend on your local machine:
 
 ```bash
-npm install --force
-npm run dev 
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more about this stack, take a look at the following resources:
-
-- [RainbowKit Documentation](https://rainbowkit.com) - Learn how to customize your wallet connection flow.
-- [wagmi Documentation](https://wagmi.sh) - Learn how to interact with Ethereum.
-- [Next.js Documentation](https://nextjs.org/docs) - Learn how to build a Next.js application.
-
-You can check out [the RainbowKit GitHub repository](https://github.com/rainbow-me/rainbowkit) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# solstice-lend
+npm install
+npm run dev
