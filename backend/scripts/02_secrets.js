@@ -1,4 +1,5 @@
-// Stores secrets in DON for WeatherConsumer.sol
+// Stores secrets in DON for WeatherConsumer.sol requests for 2000 minutes
+// terminal command: node scripts/02_secrets.js
 
 const { SecretsManager } = require("@chainlink/functions-toolkit");
 const { signer } = require("../connection.js");
@@ -33,7 +34,7 @@ const encryptAndUploadSecrets = async () => {
 
   const gatewayUrls = networks[NETWORK].gatewayUrls;
   const slotId = 0;
-  const minutesUntilExpiration = 1000;
+  const minutesUntilExpiration = 2000;
 
   const {
     version, // Secrets version number (corresponds to timestamp when encrypted secrets were uploaded to DON)

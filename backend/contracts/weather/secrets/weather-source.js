@@ -1,4 +1,4 @@
-// Source Code using secrets
+// Source Code
 
 // This weatherRequest function fetches the latest temperature for a particular area from openweathermap API
 // Args include the latitude & longitude of your location &
@@ -13,7 +13,7 @@ if (!secrets.openWeatherApiKey) {
   throw Error("Weather API Key is not available!");
 }
 
-const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${secrets.apiKey}&units=${unit}`;
+const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${secrets.openWeatherApiKey}&units=${unit}`;
 
 console.log(`Sending HTTP request to ${url}`);
 
@@ -31,7 +31,17 @@ if (weatherResponse.error) {
 // Extract the temperature and convert it to an integer
 const temperature = Math.round(weatherResponse.data.main.temp);
 
-console.log("Weather response", weatherResponse);
+let interestRate;
+
+if (temperature > 30 || temperature < 0) {
+  interestRate = 5;
+} else {
+  interestRate = 7;
+}
+
+console.log(
+  `Current temperature is ${temperature}°C, your interest rate is ${interestRate}%.`
+);
 
 // Return the temperature as a uint256 encoded value
-return Functions.encodeUint256(temperature);
+return Functions.encodeUint256(interestRate);

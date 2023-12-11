@@ -1,6 +1,6 @@
-// deploys WeatherConsumer.sol. Deployed at address on network polygonMumbai:
-// 0x4e84CF66dfF1c12C2B4857cA0e862940Bd083611
-const { abi, bytecode } = require("../contracts/abi/WeatherConsumer.json");
+// deploys WeatherConsumer.sol. Deployed at address on network polygonMumbai✅:
+// 0x10FfA36116085350FaC5910d5Ca7E162D8211468
+const { abi, bytecode } = require("../bin/contracts/WeatherConsumer.json");
 const { wallet, signer } = require("../connection.js");
 const { networks } = require("../networks.js");
 const { ContractFactory, utils } = require("ethers");
