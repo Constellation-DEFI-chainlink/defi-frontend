@@ -1,19 +1,50 @@
-// deployed on polygonMumbai: 0xfC42a9fa8408058e6B5de3E13e79b2E76128D93d
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
-import "../interfaces/ISolsticeCoin.sol";
+import "./ISolsticeCoin.sol";
 
-contract SolsticeCoin is ERC20, ERC20Permit, ISolsticeCoin {
-    constructor() ERC20("SolsticeCoin", "SC") ERC20Permit("SolsticeCoin") {}
+contract SolsticeCoin is ISolsticeCoin {
+    uint public totalSupply;
+    mapping(address => uint) public debtAmount;
+    mapping(address => mapping(address => uint)) public allowance;
+    string public name = "SolsticeCoin";
+    string public symbol = "SC";
+    uint8 public decimals = 18;
 
-    function mint(address to, uint256 amount) external override {
-        _mint(to, amount);
+    function transfer(address recipient, uint amount) external returns (bool) {
+        debtAmount[msg.sender] -= amount;
+        debtAmount[recipient] += amount;
+        emit Transfer(msg.sender, recipient, amount);
+        return true;
     }
 
-    function burnFrom(address account, uint256 value) external override {
-        _burn(account, value);
+    function approve(address spender, uint amount) external returns (bool) {
+        allowance[msg.sender][spender] = amount;
+        emit Approval(msg.sender, spender, amount);
+        return true;
+    }
+
+    function transferFrom(
+        address sender,
+        address recipient,
+        uint amount
+    ) external returns (bool) {
+        allowance[sender][msg.sender] -= amount;
+        debtAmount[sender] -= amount;
+        debtAmount[recipient] += amount;
+        emit Transfer(sender, recipient, amount);
+        return true;
+    }
+
+    function mint(uint amount) external {
+        debtAmount[msg.sender] += amount;
+        totalSupply += amount;
+        emit Transfer(address(0), msg.sender, amount);
+    }
+
+    function burn(uint amount) external {
+        debtAmount[msg.sender] -= amount;
+        totalSupply -= amount;
+        emit Transfer(msg.sender, address(0), amount);
     }
 }
